@@ -1,21 +1,15 @@
-// Initialize the map
+// Initialiser la carte
 var map = L.map('map', {
-    crs: L.CRS.Simple,  // Use a simple coordinate system (for image maps)
-    minZoom: 1,         // Set the minimum zoom level
-    maxZoom: 5          // Set the maximum zoom level
+    crs: L.CRS.Simple,  // Utiliser un système de coordonnées simple (pour les cartes d'image)
+    minZoom: 1,         // Définir le niveau de zoom minimum
+    maxZoom: 3          // Définir le niveau de zoom maximum
 });
 
-// Set the bounds of the map (the size of the image)
-var bounds = [[0, 0], [1920, 1080]]; // Example: Image size is 1920x1080, adjust as needed
+// Définir les limites de la carte en fonction de la taille réelle de l'image (2048x2048)
+var bounds = [[0, 0], [2048, 2048]]; // Taille de l'image
 
-// Add the image overlay (your map image)
+// Ajouter l'image comme fond de la carte
 L.imageOverlay('https://www.grandtheftauto5.fr/images/cartes/carte-routiere-gta-5.jpg', bounds).addTo(map);
 
-// Set the initial view and zoom level
-map.setView([960, 540], 2); // Set the center (use the center of the map, adjust coordinates)
-
-// Add a marker on the map at a specific location
-L.marker([960, 540])  // Coordinates of the center or any other point on the map
-    .addTo(map)
-    .bindPopup('<b>Welcome to GTA 5!</b><br>Here is a cool location.')
-    .openPopup();
+// Centrer la carte et définir le niveau de zoom initial
+map.setView([1024, 1024], 2); // Centrer sur le milieu de l'image (1024, 1024) et définir un zoom modéré
