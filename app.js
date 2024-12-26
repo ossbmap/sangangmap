@@ -2,14 +2,25 @@
 var map = L.map('map', {
     crs: L.CRS.Simple,  // Utiliser un système de coordonnées simple (pour les cartes d'image)
     minZoom: 1,         // Définir le niveau de zoom minimum
-    maxZoom: 3          // Définir le niveau de zoom maximum
+    maxZoom: 5          // Définir un niveau de zoom plus élevé pour bien explorer l'image
 });
 
-// Définir les limites de la carte en fonction de la taille réelle de l'image (2048x2048)
-var bounds = [[0, 0], [2048, 2048]]; // Taille de l'image
+// Taille de l'image originale (2048x2048 pixels)
+var imageWidth = 2048;
+var imageHeight = 2048;
 
-// Ajouter l'image comme fond de la carte
+// Taille de la fenêtre du navigateur
+var windowWidth = window.innerWidth;
+var windowHeight = window.innerHeight;
+
+// Déterminer le facteur de mise à l'échelle pour que l'image s'ajuste à la fenêtre du navigateur
+var scaleFactor = Math.min(windowWidth / imageWidth, windowHeight / imageHeight);
+
+// Calculer les nouvelles limites basées sur le facteur de mise à l'échelle
+var bounds = [[0, 0], [imageHeight * scaleFactor, imageWidth * scaleFactor]];
+
+// Ajouter l'image comme fond de la carte avec la mise à l'échelle
 L.imageOverlay('https://www.grandtheftauto5.fr/images/cartes/carte-routiere-gta-5.jpg', bounds).addTo(map);
 
-// Centrer la carte et définir le niveau de zoom initial
-map.setView([1024, 1024], 2); // Centrer sur le milieu de l'image (1024, 1024) et définir un zoom modéré
+// Centrer la carte sur le centre de l'image redimensionnée
+map.setView([imageHeight * scaleFactor / 2, imageWidth * scaleFactor / 2], 2);
